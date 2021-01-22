@@ -44,7 +44,7 @@ trait QueryBuilderTrait
      *
      * @return array
      */
-    protected function all($options = [])
+    public function all($options = [])
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make(WooCommerce::all($this->endpoint, $options));
@@ -65,7 +65,7 @@ trait QueryBuilderTrait
      *
      * @return object
      */
-    protected function find($id, $options = [])
+    public function find($id, $options = [])
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make(WooCommerce::find("{$this->endpoint}/{$id}", $options));
@@ -85,7 +85,7 @@ trait QueryBuilderTrait
      *
      * @return object
      */
-    protected function create($data)
+    public function create($data)
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make(WooCommerce::create($this->endpoint, $data));
@@ -106,7 +106,7 @@ trait QueryBuilderTrait
      *
      * @return object
      */
-    protected function update($id, $data)
+    public function update($id, $data)
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make(WooCommerce::update("{$this->endpoint}/{$id}", $data));
@@ -127,7 +127,7 @@ trait QueryBuilderTrait
      *
      * @return object
      */
-    protected function delete($id, $options = [])
+    public function delete($id, $options = [])
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make(WooCommerce::delete("{$this->endpoint}/{$id}", $options));
@@ -147,7 +147,7 @@ trait QueryBuilderTrait
      *
      * @return object
      */
-    protected function batch($data)
+    public function batch($data)
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make(WooCommerce::create("{$this->endpoint}/batch", $data));
@@ -165,7 +165,7 @@ trait QueryBuilderTrait
      *
      * @return array
      */
-    protected function get()
+    public function get()
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make(WooCommerce::all($this->endpoint, $this->options));
@@ -183,7 +183,7 @@ trait QueryBuilderTrait
      *
      * @return object
      */
-    protected function first()
+    public function first()
     {
         if ($this->isLazyCollection) {
             return LazyCollection::make($this->get()[0] ?? new \stdClass());
@@ -201,7 +201,7 @@ trait QueryBuilderTrait
      *
      * @return object $this
      */
-    protected function withOriginal()
+    public function withOriginal()
     {
         $this->isOriginal = true;
         $this->isCollection = false;
@@ -215,7 +215,7 @@ trait QueryBuilderTrait
      *
      * @return object $this
      */
-    protected function withCollection()
+    public function withCollection()
     {
         $this->isOriginal = false;
         $this->isCollection = true;
@@ -229,7 +229,7 @@ trait QueryBuilderTrait
      *
      * @return object $this
      */
-    protected function withLazyCollection()
+    public function withLazyCollection()
     {
         $this->isOriginal = false;
         $this->isCollection = false;
@@ -245,7 +245,7 @@ trait QueryBuilderTrait
      *
      * @return object $this
      */
-    protected function options($parameters)
+    public function options($parameters)
     {
         if (!is_array($parameters)) {
             throw new \Exception('Options must be an array', 1);
@@ -269,7 +269,7 @@ trait QueryBuilderTrait
      *
      * @return object $this
      */
-    protected function where(...$parameters)
+    public function where(...$parameters)
     {
         if (count($parameters) < 2 || count($parameters) > 3) {
             throw new \Exception('You can pass minimum 2 and maximum 3 paramneters');
@@ -297,7 +297,7 @@ trait QueryBuilderTrait
      *
      * @return object $this
      */
-    protected function orderBy($name, $direction = 'desc')
+    public function orderBy($name, $direction = 'desc')
     {
         $this->options['orderby'] = $name;
         $this->options['order'] = $direction;
@@ -314,7 +314,7 @@ trait QueryBuilderTrait
      *
      * @return array
      */
-    protected function paginate($per_page = 10, $current_page = 1, $options = [])
+    public function paginate($per_page = 10, $current_page = 1, $options = [])
     {
         try {
             $this->options['per_page'] = (int) $per_page;
@@ -368,7 +368,7 @@ trait QueryBuilderTrait
      *
      * @return int
      */
-    protected function count()
+    public function count()
     {
         try {
             $results = WooCommerce::all($this->endpoint, $this->options);
